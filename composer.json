@@ -1,0 +1,22 @@
+{
+  "name": "vendor_name/blog.sntaks.com",
+  "description": "Sntaks Solutions Blog",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "sntaks",
+      "email": "info@sntaks.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Sntaks\\Models\\": "src/models",
+      "Sntaks\\Controllers\\": "controllers"
+    }
+  },
+  "require": {
+    "ext-mysqli": "*",
+    "fzaninotto/faker": "^1.9"
+  }
+}
