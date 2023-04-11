@@ -29,7 +29,7 @@ class DB
      * @return int|void
      */
     public function exec($q){
-        return mysqli_query($this->conn, $q) ? 1 : die("Error: ".mysqli_error($this->conn));
+        return mysqli_query($this->conn, $q) ? 1 : die("Error: ".mysqli_errno($this->conn)." ".mysqli_error($this->conn));
     }
 
     /**

@@ -29,45 +29,45 @@
                 <div class="col-lg-9 col-md-12">
                     <div class="copyright-left">
                         <div class="logo">
-                            <a href="index-2.html">
-                                <img class="dark-logo" src="assets/images/logo/logo-black.png" alt="Logo Images">
-                                <img class="light-logo" src="assets/images/logo/logo-white2.png" alt="Logo Images">
+                            <a href="index">
+                                <img class="dark-logo" src="assets/images/blog.sntaks-logo.png" alt="Blog.Sntaks.Logo">
+                                <img class="light-logo" src="assets/images/blog.sntaks-logo.png" alt="Blog.Sntaks.Logo">
                             </a>
                         </div>
                         <ul class="mainmenu justify-content-start">
                             <li>
                                 <a class="hover-flip-item-wrapper" href="#">
-                                            <span class="hover-flip-item">
+                                    <span class="hover-flip-item">
                                         <span data-text="Contact Us">Contact Us</span>
-                                            </span>
+                                    </span>
                                 </a>
                             </li>
                             <li>
                                 <a class="hover-flip-item-wrapper" href="#">
-                                            <span class="hover-flip-item">
+                                    <span class="hover-flip-item">
                                         <span data-text="Terms of Use">Terms of Use</span>
-                                            </span>
+                                    </span>
                                 </a>
                             </li>
                             <li>
                                 <a class="hover-flip-item-wrapper" href="#">
-                                            <span class="hover-flip-item">
+                                    <span class="hover-flip-item">
                                         <span data-text="AdChoices">AdChoices</span>
-                                            </span>
+                                    </span>
                                 </a>
                             </li>
                             <li>
                                 <a class="hover-flip-item-wrapper" href="#">
-                                            <span class="hover-flip-item">
+                                    <span class="hover-flip-item">
                                         <span data-text="Advertise with Us">Advertise with Us</span>
-                                            </span>
+                                    </span>
                                 </a>
                             </li>
                             <li>
                                 <a class="hover-flip-item-wrapper" href="#">
-                                            <span class="hover-flip-item">
-                                        <span data-text="Blogar Store">Blogar Store</span>
-                                            </span>
+                                    <span class="hover-flip-item">
+                                        <span data-text="Sntaks Solutions">Sntaks Solutions</span>
+                                    </span>
                                 </a>
                             </li>
                         </ul>
@@ -75,7 +75,7 @@
                 </div>
                 <div class="col-lg-3 col-md-12">
                     <div class="copyright-right text-start text-lg-end mt_md--20 mt_sm--20">
-                        <p class="b3">All Rights Reserved © 2022</p>
+                        <p class="b3">All Rights Reserved © <?php echo date('Y') ?></p>
                     </div>
                 </div>
             </div>

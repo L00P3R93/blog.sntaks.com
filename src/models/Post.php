@@ -140,13 +140,14 @@ class Post{
             $category_id = $faker->numberBetween(1, 16);
 
             $tags = implode(',', array_map(function() use ($faker) { return $faker->numberBetween(1, 20); }, range(1, $faker->numberBetween(1, 5))));
-            $status = $faker->numberBetween(1, 7);
+            $status = 1 /*$faker->numberBetween(1, 7)*/;
             $date_added = date('Y-m-d H:i:s');
 
             $p = new Post(null, $title,$content,$author,$published_date, $user_id,$category_id,$tags,$status,$date_added);
             //echo $p."<br>";
             $insert = $p->save();
             echo $insert;
+            sleep(2);
         }
     }
 

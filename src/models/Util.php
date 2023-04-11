@@ -3,8 +3,7 @@ namespace Sntaks\Models;
 
 use DateTime;
 
-class Util
-{
+class Util{
     const format = "Y-m-d";
 
     public function __construct(){}
@@ -14,8 +13,7 @@ class Util
      * @param $id
      * @return float|int
      */
-    public static function encurl($id)
-    {
+    public static function encurl($id){
         return $id * SNTAKS;
     }
 
@@ -24,8 +22,7 @@ class Util
      * @param $id
      * @return float|int
      */
-    public static function decurl($id)
-    {
+    public static function decurl($id){
         return $id / SNTAKS;
     }
 
@@ -36,8 +33,7 @@ class Util
      * @param $return
      * @return string
      */
-    public static function selected($value1, $value2, $return)
-    {
+    public static function selected($value1, $value2, $return){
         return $value1 === $value2 ? $return : "";
     }
 
@@ -46,8 +42,7 @@ class Util
      * @param $string
      * @return string
      */
-    public static function uni_name($string)
-    {
+    public static function uni_name($string){
         return ucwords(strtolower($string));
     }
 
@@ -56,8 +51,7 @@ class Util
      * @param $pass
      * @return string
      */
-    public static function passencrypt($pass)
-    {
+    public static function passencrypt($pass){
         $oursalt = self::crazyString(32);
         $longpass = $oursalt . $pass;
         $hash = hash('SHA256', $longpass);
@@ -69,8 +63,7 @@ class Util
      * @param $length
      * @return string
      */
-    public static function generateRandomString($length)
-    {
+    public static function generateRandomString($length){
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
@@ -85,8 +78,7 @@ class Util
      * @param $length
      * @return string
      */
-    public static function crazyString($length)
-    {
+    public static function crazyString($length){
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#%^*()_+-~{}[];:|.<>';
         $charactersLength = strlen($characters);
         $randomString = '';
@@ -101,8 +93,7 @@ class Util
      * @param $x
      * @return int
      */
-    public static function input_available($x)
-    {
+    public static function input_available($x){
         return !empty(rtrim($x)) ? 1 : 0;
     }
 

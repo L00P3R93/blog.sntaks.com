@@ -6,8 +6,9 @@ error_reporting(E_ALL);
 use Sntaks\Models\DB;
 use Sntaks\Models\User;
 use Sntaks\Models\Post;
+use Sntaks\Models\Category;
 
-use Sntaks\Models\Router;
+use Sntaks\Models\Util;
 
 require 'vendor/autoload.php';
 
@@ -28,34 +29,6 @@ $config = array(
         ]
     ]
 );
-
-$router = new Router();
-
-// Define the routes
-$router->add('', ['controller' => 'Home', 'action' => 'index']);
-$router->add('posts', ['controller' => 'Posts', 'action' => 'index']);
-$router->add('posts/{id:\d+}', ['controller' => 'Posts', 'action' => 'show']);
-
-// Match the current URL
-$url = $_SERVER['QUERY_STRING'];
-if ($router->match($url)) {
-    $controller = $router->getParams()['controller'];
-    $action = $router->getParams()['action'];
-
-    // Call the appropriate controller and action
-    $controllerName = $controller . 'Controller';
-    $controllerFile = 'controllers/' . $controllerName . '.php';
-    if (file_exists($controllerFile)) {
-        require_once $controllerFile;
-        $controllerObj = new $controllerName();
-        $controllerObj->$action();
-    } else {
-        // Handle 404 error
-    }
-} else {
-    // Handle 404 error
-}
-
 
 $pages = array("login", "dashboard", "staff", "expenses", "payroll");
 $uri = $_SERVER['REQUEST_URI'];
@@ -81,20 +54,25 @@ define('DAY_', date('d'));
 $DB = new DB();
 $user = new User();
 $post = new Post();
+$category = new Category();
+$util = new Util();
 
-echo "DB State => ".$user->checkDBconn();
-echo "<br>";
-var_export($user->getUsers(1));
+//echo "DB State => ".$user->checkDBconn()."<br>";
 
-$_SESSION['sntaks_'] = 1;
+$_SESSION['sntaks_'] = 2;
+$username = $user_email = '';
 if(isset($_SESSION['sntaks_'])){
     $user_id = $_SESSION['sntaks_'];
     $user = $user->getUserById($user_id);
-    echo "<br>Username: ".$user->getUsername();
+    $username = $user->getUsername();
+    $user_email = $user->getEmail();
 }
 
-echo "<br>";
-//$post->generateFakePosts(7);
-$p = $post->getPostsGroupedByCategory();
-var_export($p);
+$all_categories = $category->getCategories();
+$categories_with_posts = $category->getCategoriesWithPosts();
+
+//var_export($categories_with_posts);
+//echo "<br>";
+//$post->generateFakePosts(50);
+
 
