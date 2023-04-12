@@ -96,7 +96,7 @@
                                         <!-- Start Verticle Nav  -->
                                         <div class="axil-vertical-nav">
                                             <ul class="vertical-nav-menu">
-                                                <?php $category_ids = []; $i=0; foreach($categories_with_posts as $k=>$v){ ?>
+                                                <?php $category_ids = []; $i=0; foreach($categories_with_posts as $k=>$v){ $category_ids[] =$v['uid']; ?>
                                                     <li class="vertical-nav-item <?php echo $k==0?'active':''; ?>">
                                                         <a class="hover-flip-item-wrapper" href="<?php echo "#tab".++$i; ?>">
                                                             <span class="hover-flip-item">
@@ -104,7 +104,7 @@
                                                             </span>
                                                         </a>
                                                     </li>
-                                                <?php  $category_ids[] =$v['uid'];  if($k>=4) break; else continue; } ?>
+                                                <?php } ?>
                                             </ul>
                                         </div>
                                         <!-- Start Verticle Nav  -->
@@ -135,7 +135,7 @@
                                                                                     </a>
                                                                                 </div>
                                                                             </div>
-                                                                            <h5 class="title"><a href="#"><?php echo substr($v['content'], 0,50) ?></a></h5>
+                                                                            <h5 class="title"><a href="#"><?php echo $util->shortenString($v['content'], 60) ?></a></h5>
                                                                         </div>
                                                                     </div>
                                                                 </div>

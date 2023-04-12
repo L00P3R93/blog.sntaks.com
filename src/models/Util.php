@@ -13,7 +13,7 @@ class Util{
      * @param $id
      * @return float|int
      */
-    public static function encurl($id){
+    public function encurl($id){
         return $id * SNTAKS;
     }
 
@@ -22,7 +22,7 @@ class Util{
      * @param $id
      * @return float|int
      */
-    public static function decurl($id){
+    public function decurl($id){
         return $id / SNTAKS;
     }
 
@@ -33,7 +33,7 @@ class Util{
      * @param $return
      * @return string
      */
-    public static function selected($value1, $value2, $return){
+    public function selected($value1, $value2, $return){
         return $value1 === $value2 ? $return : "";
     }
 
@@ -42,7 +42,7 @@ class Util{
      * @param $string
      * @return string
      */
-    public static function uni_name($string){
+    public function uni_name($string){
         return ucwords(strtolower($string));
     }
 
@@ -51,7 +51,7 @@ class Util{
      * @param $pass
      * @return string
      */
-    public static function passencrypt($pass){
+    public function passencrypt($pass){
         $oursalt = self::crazyString(32);
         $longpass = $oursalt . $pass;
         $hash = hash('SHA256', $longpass);
@@ -63,7 +63,7 @@ class Util{
      * @param $length
      * @return string
      */
-    public static function generateRandomString($length){
+    public function generateRandomString($length){
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
@@ -78,7 +78,7 @@ class Util{
      * @param $length
      * @return string
      */
-    public static function crazyString($length){
+    public function crazyString($length){
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#%^*()_+-~{}[];:|.<>';
         $charactersLength = strlen($characters);
         $randomString = '';
@@ -93,7 +93,7 @@ class Util{
      * @param $x
      * @return int
      */
-    public static function input_available($x){
+    public function input_available($x){
         return !empty(rtrim($x)) ? 1 : 0;
     }
 
@@ -103,8 +103,7 @@ class Util{
      * @param $l
      * @return int
      */
-    public static function input_length($x, $l)
-    {
+    public function input_length($x, $l){
         return strlen(rtrim($x)) < $l ? 0 : 1;
     }
 
@@ -114,8 +113,7 @@ class Util{
      * @param $phone
      * @return int
      */
-    public static function validate_phone($phone)
-    {
+    public function validate_phone($phone){
         return (strlen($phone) == 12 and substr($phone, 0, 3) == "254") ? 1 : 0;
     }
 
@@ -124,8 +122,7 @@ class Util{
      * @param $date
      * @return int
      */
-    public static function validate_date($date)
-    {
+    public function validate_date($date){
         return date(self::format, strtotime($date)) == date($date) ? 1 : 0;
     }
 
@@ -134,8 +131,7 @@ class Util{
      * @param $email
      * @return int
      */
-    public static function validate_email($email)
-    {
+    public function validate_email($email){
         return filter_var($email, FILTER_VALIDATE_EMAIL) ? 1 : 0;
     }
 
@@ -146,8 +142,7 @@ class Util{
      * @return string
      * @throws \Exception
      */
-    public static function time_elapsed_string($datetime, $full = false)
-    {
+    public function time_elapsed_string($datetime, $full = false){
         $now = new DateTime;
         $ago = new DateTime($datetime);
         $diff = $now->diff($ago);
@@ -184,8 +179,7 @@ class Util{
      * @param $days
      * @return false|string
      */
-    public static function date_add($date, $year, $months, $days)
-    {
+    public function date_add($date, $year, $months, $days){
         return date('Y-m-d', strtotime($date . " + $year years + $months months + $days days"));
     }
 
@@ -197,8 +191,7 @@ class Util{
      * @param $days
      * @return false|string
      */
-    public static function date_sub($date, $year, $months, $days)
-    {
+    public function date_sub($date, $year, $months, $days){
         return date('Y-m-d', strtotime($date . " - $year years - $months months - $days days"));
     }
 
@@ -208,8 +201,7 @@ class Util{
      * @param $search_array
      * @return int
      */
-    public static function file_type($file_name, $search_array)
-    {
+    public function file_type($file_name, $search_array){
         $ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
         return in_array("$ext", $search_array) ? 1 : 0;
     }
@@ -221,8 +213,7 @@ class Util{
      * @param $upload_dir
      * @return int|string
      */
-    public static function upload_file($file_name, $temp_name, $upload_dir)
-    {
+    public function upload_file($file_name, $temp_name, $upload_dir){
         $ext = pathinfo($file_name, PATHINFO_EXTENSION);
         $new_file_name = self::generateRandomString(10) . ".$ext";
         $file_path = $upload_dir . $new_file_name;
@@ -234,8 +225,7 @@ class Util{
      * @param $x
      * @return string
      */
-    public static function error($x)
-    {
+    public function error($x){
         return "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
                     <strong>$x</strong>
                     <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
@@ -249,8 +239,7 @@ class Util{
      * @param $x
      * @return string
      */
-    public static function success($x)
-    {
+    public function success($x){
         return "<div class='alert alert-success alert-dismissible fade show' role='alert'>
                     <strong>$x</strong>
                     <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
@@ -264,8 +253,7 @@ class Util{
      * @param $x
      * @return string
      */
-    public static function notice($x)
-    {
+    public function notice($x){
         return "<div class='alert alert-info alert-dismissible fade show' role='alert'>
                     <strong>$x</strong>
                     <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
@@ -279,8 +267,7 @@ class Util{
      * @param $x
      * @return string
      */
-    public static function warning($x)
-    {
+    public function warning($x){
         return "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
                     <strong>$x</strong>
                     <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
@@ -301,8 +288,7 @@ class Util{
      * @return String containing either just a URL or a complete image tag
      * @source https://gravatar.com/site/implement/images/php/
      */
-    public static function get_gravatar($email, $s = 80, $d = 'mp', $r = 'g', $img = false, $atts = array())
-    {
+    public function get_gravatar($email, $s = 80, $d = 'mp', $r = 'g', $img = false, $atts = array()){
         $url = 'https://www.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));
         $url .= "?s=$s&d=$d&r=$r";
@@ -322,8 +308,7 @@ class Util{
      * @param bool $strict
      * @return bool
      */
-    public static function in_array_r($needle, $haystack, $strict = false)
-    {
+    public function in_array_r($needle, $haystack, $strict = false){
         foreach ($haystack as $item) {
             if (($strict ? $item === $needle : $item == $needle) || (is_array($item) && self::in_array_r($needle, $item, $strict))) {
                 return true;
@@ -332,9 +317,96 @@ class Util{
         return false;
     }
 
-    public static function objectToArray($object)
-    {
+    public function objectToArray($object){
         if (!is_object($object) && !is_array($object)) return $object;
         return array_map('objectToArray', (array)$object);
     }
+    
+    public function shortenString($string, $length = 100) {
+        // Trim the string to the maximum length
+        $shortString = substr($string, 0, $length);
+
+        // Find the last space before the end of the string
+        $lastSpace = strrpos($shortString, ' ');
+
+        // If the last space was found...
+        if ($lastSpace !== false) {
+            // Remove everything after the last space
+            $shortString = substr($shortString, 0, $lastSpace);
+        }
+
+        // Add an ellipsis to the end of the string
+        $shortString .= '...';
+
+        // Return the shortened string
+        return $shortString;
+    }
+
+    public function time_elapsed_string_($datetime, $full = false) {
+        $now = new DateTime;
+        try {$ago = new DateTime($datetime);}
+        catch (\Exception $e) {}
+        $diff = $now->diff($ago);
+
+        $string = array('y' => 'year', 'm' => 'month', 'w' => 'week', 'd' => 'day', 'h' => 'hour', 'i' => 'minute', 's' => 'second');
+        $string_parts = array_filter(array_map(function($k, $v) use ($diff) {
+            $diff->w = 0;
+            return $diff->$k ? $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '') : null;
+        }, array_keys($string), $string));
+
+        if (!$full) {
+            $string_parts = array_slice($string_parts, 0, 1);
+        }
+
+        return implode(', ', $string_parts) . ' ago' ?: 'just now';
+    }
+
+    public function formatViews($views) {
+        if ($views >= 1000000) {
+            return round($views / 1000000, 1) . 'M Views';
+        } else if ($views >= 1000) {
+            return round($views / 1000, 1) . 'k Views';
+        } else {
+            return $views . ' Views';
+        }
+    }
+
+    public function intToWord($num) {
+        switch($num) {
+            case 1:
+                return 'one';
+            case 2:
+                return 'two';
+            case 3:
+                return 'three';
+            case 4:
+                return 'four';
+            case 5:
+                return 'five';
+            case 6:
+                return 'six';
+            case 7:
+                return 'seven';
+            case 8:
+                return 'eight';
+            case 9:
+                return 'nine';
+            case 10:
+                return 'ten';
+            default:
+                return 'Invalid input';
+        }
+    }
+
+    public function genRand($min, $max, &$usedNumbers){
+        $n = rand($min,$max);
+        while(in_array($n, $usedNumbers)){$n = rand($min, $max);}
+        $usedNumbers[] = $n;
+        return $n<10?"0$n":$n;
+    }
+
+    public function setDatePublished($date){
+        return date('jS M, Y', strtotime($date));
+    }
+
 }

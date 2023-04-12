@@ -232,4 +232,27 @@ class DB
     public function delete($table, $where){
         return $this->exec("DELETE FROM $table WHERE $where");
     }
+
+    /**
+     * Get Random rows from table with specified limit to number of rows
+     * @param $table
+     * @param $where
+     * @param $limit
+     * @return int|mixed|string
+     */
+    public function getRandWithLimit($table, $where, $limit){
+        $q = "SELECT * FROM $table WHERE $where ORDER BY RAND() LIMIT $limit";
+        return $this->execQ($q);
+    }
+
+    /**
+     * Get Random rows from table with no limit to number of rows
+     * @param $table
+     * @param $where
+     * @return bool|\mysqli_result|void
+     */
+    public function getRand($table, $where){
+        $q = "SELECT * FROM $table WHERE $where ORDER BY RAND()";
+        return $this->execQ($q);
+    }
 }

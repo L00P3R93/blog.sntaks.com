@@ -20,12 +20,12 @@ $config = array(
     'database_user'=>'root',
     'database_password'=>'',
     'cors'=>[
-    'enabled'=>true,
-    'origin'=>'*',
-    'headers'=>[
-        'Access-Control-Allow-Headers'=>'Origin, X-Requested-With, Authorization, Cache-Control, Content-Type, Access-Control-Allow-Origin',
-        'Access-Control-Allow-Credentials'=>'true',
-        'Access-Control-Allow-Methods'=>'GET,PUT,POST,DELETE,OPTIONS,PATCH'
+        'enabled'=>true,
+        'origin'=>'*',
+        'headers'=>[
+            'Access-Control-Allow-Headers'=>'Origin, X-Requested-With, Authorization, Cache-Control, Content-Type, Access-Control-Allow-Origin',
+            'Access-Control-Allow-Credentials'=>'true',
+            'Access-Control-Allow-Methods'=>'GET,PUT,POST,DELETE,OPTIONS,PATCH'
         ]
     ]
 );
@@ -51,7 +51,7 @@ define('MONTH_', date('m'));
 define('DAY_', date('d'));
 
 
-$DB = new DB();
+$db = new DB();
 $user = new User();
 $post = new Post();
 $category = new Category();
@@ -85,10 +85,7 @@ $post_viewed = $post->getPopularPostByView();
 $viewed_posts = $post->getMostViewedPosts("0,4");
 $random_posts = $post->getRandomPosts();
 
-
-//var_export($categories_with_posts);
-//echo "<br>";
-//$post->generateFakePosts(50);
-
+echo "<br>";
+var_export($random_posts);
 
 
