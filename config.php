@@ -89,6 +89,22 @@ $random_posts = $post->getRandomPosts();
 //var_export($categories_with_posts);
 //echo "<br>";
 //$post->generateFakePosts(50);
+$post_view = new Post();
+$post_tags = [];
+
+if(isset($_GET['pid']) and !empty($_GET['pid'])){
+    //$post_id_ = $util->decurl($_GET['pid']);
+    $post_id_ = $_GET['pid'];
+    if($post_id_ > 0){
+        $post_view = $post->getPostById($post_id_);
+        $post_tags = $post->getPostTags($post_id_);
+        $tagsIdArr = array_map(function($item) {return $item['uid'];}, $post_tags);
+        $tagsIdStr = implode(',', $tagsIdArr);
+        $post_related = $post->getRelatedPosts($tagsIdStr, "4");
+    }else{
+        $util->redirect('home');
+    }
+}
 
 
 

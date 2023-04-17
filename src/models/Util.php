@@ -409,4 +409,12 @@ class Util{
         return date('jS M, Y', strtotime($date));
     }
 
+    public function redirect($page){
+        header("Location: $page");
+        exit();
+    }
+
+    public function reload($time = 0){
+        header("Refresh: $time");
+    }
 }

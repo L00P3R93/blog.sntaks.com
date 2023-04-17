@@ -28,6 +28,18 @@ class Category{
     public function setDescription($description){$this->description = $description;}
     public function setDateAdded($date_added){$this->date_added = $date_added;}
 
+    public function save(){
+        if($this->category_id){
+            $update_str = "name='$this->name',descr='$this->description'";
+            $save = $this->db->update('categories',$update_str,"uid='$this->category_id'");
+        }else{
+            $fields = ['name','descr','date_added'];
+            $values = [$this->name, $this->description, $this->date_added];
+            $save = $this->db->insert('categories',$fields,$values);
+        }
+        return $save;
+    }
+
     public function getCategories($no_of_categories=null){
         $c = $this->db->getQ('categories',"uid>0",'*', null, 'uid','ASC', $no_of_categories);
         if(!$c) return null; $arr = [];
@@ -83,6 +95,6 @@ class Category{
     }
 
     public function __toString(){
-        return "User: [id={$this->category_id}, name={$this->name}, description={$this->description}, date_added={$this->date_added}]";
+        return "Category: [id={$this->category_id}, name={$this->name}, description={$this->description}, date_added={$this->date_added}]";
     }
 }

@@ -300,7 +300,7 @@
                         <div class="col-lg-12">
                             <!-- Start List Wrapper  -->
                             <div class="list-categories categories-activation axil-slick-arrow arrow-between-side">
-                                <?php foreach ($all_categories as $k=>$category){ ?>
+                                <?php foreach ($all_categories as $k=>$c){ ?>
                                     <!-- Start Single Category  -->
                                     <div class="single-cat">
                                         <div class="inner">
@@ -309,7 +309,7 @@
                                                     <img src="assets/images/small-images/blog-sm-<?php $usedNumbers=[]; echo $util->genRand(1, 10, $usedNumbers) ?>.jpg" alt="post categories images">
                                                 </div>
                                                 <div class="content">
-                                                    <h5 class="title"><?php echo $category['name'] ?></h5>
+                                                    <h5 class="title"><?php echo $c['name'] ?></h5>
                                                 </div>
                                             </a>
                                         </div>
@@ -336,234 +336,52 @@
                                     </a>
                                 </div>
                             </div>-->
-                            <?php var_export($random_posts); foreach ($random_posts as $k=>$v){ ?>
-
+                            <?php foreach ($random_posts as $k=>$v){ $rand_category = $category->getCategoryById($v['category_id']);?>
+                                <!-- Start Post List  -->
+                                <div class="content-block post-list-view <?php echo $k==0?'is-active':'axil-control'; ?> mt--30">
+                                    <div class="post-thumbnail">
+                                        <a href="">
+                                            <img src="assets/images/small-images/post-seo-list-<?php $usedNumbers=[]; echo $util->genRand(1,3, $usedNumbers) ?>.jpg" alt="Post Images">
+                                        </a>
+                                    </div>
+                                    <div class="post-content">
+                                        <div class="post-cat">
+                                            <div class="post-cat-list">
+                                                <a class="hover-flip-item-wrapper" href="#">
+                                                <span class="hover-flip-item">
+                                                    <span data-text="<?php echo $rand_category->getName() ?>"><?php echo $rand_category->getName() ?></span>
+                                                </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <h4 class="title"><a href="#"><?php echo $util->shortenString($v['title'], 25) ?></a></h4>
+                                        <div class="post-meta-wrapper">
+                                            <div class="post-meta">
+                                                <div class="content">
+                                                    <h6 class="post-author-name">
+                                                        <a class="hover-flip-item-wrapper" href="#">
+                                                        <span class="hover-flip-item">
+                                                            <span data-text="<?php echo $v['author'] ?>"><?php echo $v['author'] ?></span>
+                                                        </span>
+                                                        </a>
+                                                    </h6>
+                                                    <ul class="post-meta-list">
+                                                        <li><?php echo $util->setDatePublished($v['published_date']) ?></li>
+                                                        <li>3 min read</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <ul class="social-share-transparent justify-content-end">
+                                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="fas fa-link"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Post List  -->
                             <?php } ?>
-
-                            <!-- Start Post List  -->
-                            <div class="content-block post-list-view is-active mt--30">
-                                <div class="post-thumbnail">
-                                    <a href="">
-                                        <img src="assets/images/small-images/post-seo-list-01.jpg" alt="Post Images">
-                                    </a>
-                                </div>
-                                <div class="post-content">
-                                    <div class="post-cat">
-                                        <div class="post-cat-list">
-                                            <a class="hover-flip-item-wrapper" href="#">
-                                                <span class="hover-flip-item">
-                                                    <span data-text="RESEARCH">RESEARCH</span>
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <h4 class="title"><a href="post-details.html">Competitive Advantage in a Commoditized Industry</a></h4>
-                                    <div class="post-meta-wrapper">
-                                        <div class="post-meta">
-                                            <div class="content">
-                                                <h6 class="post-author-name">
-                                                    <a class="hover-flip-item-wrapper" href="author.html">
-                                                        <span class="hover-flip-item">
-                                                            <span data-text="Jone Doe">Jone Doe</span>
-                                                        </span>
-                                                    </a>
-                                                </h6>
-                                                <ul class="post-meta-list">
-                                                    <li>Feb 17, 2019</li>
-                                                    <li>3 min read</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <ul class="social-share-transparent justify-content-end">
-                                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                            <li><a href="#"><i class="fas fa-link"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Post List  -->
-
-                            <!-- Start Post List  -->
-                            <div class="content-block post-list-view axil-control mt--30">
-                                <div class="post-thumbnail">
-                                    <a href="post-details.html">
-                                        <img src="assets/images/small-images/post-seo-list-02.jpg" alt="Post Images">
-                                    </a>
-                                </div>
-                                <div class="post-content">
-                                    <div class="post-cat">
-                                        <div class="post-cat-list">
-                                            <a class="hover-flip-item-wrapper" href="#">
-                                                <span class="hover-flip-item">
-                                                    <span data-text="SEARCH ENGINES">SEARCH ENGINES</span>
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <h4 class="title"><a href="post-details.html">YouTube Dominates Google Video in 2020</a></h4>
-                                    <div class="post-meta-wrapper">
-                                        <div class="post-meta">
-                                            <div class="content">
-                                                <h6 class="post-author-name">
-                                                    <a class="hover-flip-item-wrapper" href="author.html">
-                                                        <span class="hover-flip-item">
-                                                            <span data-text="Esmat Ara">Esmat Ara</span>
-                                                        </span>
-                                                    </a>
-                                                </h6>
-                                                <ul class="post-meta-list">
-                                                    <li>Feb 17, 2019</li>
-                                                    <li>3 min read</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <ul class="social-share-transparent justify-content-end">
-                                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                            <li><a href="#"><i class="fas fa-link"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Post List  -->
-
-                            <!-- Start Post List  -->
-                            <div class="content-block post-list-view axil-control mt--30">
-                                <div class="post-thumbnail">
-                                    <a href="post-details.html">
-                                        <img src="assets/images/small-images/post-seo-list-03.jpg" alt="Post Images">
-                                    </a>
-                                </div>
-                                <div class="post-content">
-                                    <div class="post-cat">
-                                        <div class="post-cat-list">
-                                            <a class="hover-flip-item-wrapper" href="#">
-                                                <span class="hover-flip-item">
-                                                    <span data-text="ON-PAGE SEO">ON-PAGE SEO</span>
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <h4 class="title"><a href="post-details.html">How to Create a Useful and Well Optimized FAQ Page</a></h4>
-                                    <div class="post-meta-wrapper">
-                                        <div class="post-meta">
-                                            <div class="content">
-                                                <h6 class="post-author-name">
-                                                    <a class="hover-flip-item-wrapper" href="author.html">
-                                                        <span class="hover-flip-item">
-                                                            <span data-text="Pritha Knock">Pritha Knock</span>
-                                                        </span>
-                                                    </a>
-                                                </h6>
-                                                <ul class="post-meta-list">
-                                                    <li>Feb 17, 2019</li>
-                                                    <li>3 min read</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <ul class="social-share-transparent justify-content-end">
-                                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                            <li><a href="#"><i class="fas fa-link"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Post List  -->
-
-                            <!-- Start Post List  -->
-                            <div class="content-block post-list-view axil-control mt--30">
-                                <div class="post-thumbnail">
-                                    <a href="post-details.html">
-                                        <img src="assets/images/small-images/post-seo-list-02.jpg" alt="Post Images">
-                                    </a>
-                                </div>
-                                <div class="post-content">
-                                    <div class="post-cat">
-                                        <div class="post-cat-list">
-                                            <a class="hover-flip-item-wrapper" href="#">
-                                                <span class="hover-flip-item">
-                                                    <span data-text="CONTENT MARKETING">CONTENT MARKETING</span>
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <h4 class="title"><a href="post-details.html">3 Digital PR Tenets for Excellent Outreach</a></h4>
-                                    <div class="post-meta-wrapper">
-                                        <div class="post-meta">
-                                            <div class="content">
-                                                <h6 class="post-author-name">
-                                                    <a class="hover-flip-item-wrapper" href="author.html">
-                                                        <span class="hover-flip-item">
-                                                            <span data-text="Kanak Lota">Kanak Lota</span>
-                                                        </span>
-                                                    </a>
-                                                </h6>
-                                                <ul class="post-meta-list">
-                                                    <li>Feb 17, 2019</li>
-                                                    <li>3 min read</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <ul class="social-share-transparent justify-content-end">
-                                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                            <li><a href="#"><i class="fas fa-link"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Post List  -->
-
-                            <!-- Start Post List  -->
-                            <div class="content-block post-list-view axil-control mt--30">
-                                <div class="post-thumbnail">
-                                    <a href="post-details.html">
-                                        <img src="assets/images/small-images/post-seo-list-05.jpg" alt="Post Images">
-                                    </a>
-                                </div>
-                                <div class="post-content">
-                                    <div class="post-cat">
-                                        <div class="post-cat-list">
-                                            <a class="hover-flip-item-wrapper" href="#">
-                                                <span class="hover-flip-item">
-                                                    <span data-text="SEO TOOL">SEO TOOL</span>
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <h4 class="title"><a href="post-details.html">Overcoming Blockers: How to Build Your Red Tape Toolkit </a></h4>
-                                    <div class="post-meta-wrapper">
-                                        <div class="post-meta">
-                                            <div class="content">
-                                                <h6 class="post-author-name">
-                                                    <a class="hover-flip-item-wrapper" href="author.html">
-                                                        <span class="hover-flip-item">
-                                                            <span data-text="Ismat Jahan">Ismat Jahan</span>
-                                                        </span>
-                                                    </a>
-                                                </h6>
-                                                <ul class="post-meta-list">
-                                                    <li>Feb 17, 2019</li>
-                                                    <li>3 min read</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <ul class="social-share-transparent justify-content-end">
-                                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                            <li><a href="#"><i class="fas fa-link"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Post List  -->
 
                         </div>
                         <div class="col-lg-4 col-xl-4 mt_md--40 mt_sm--40">

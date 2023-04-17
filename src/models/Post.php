@@ -139,7 +139,7 @@ class Post{
         return $arr;
     }
 
-    public function getRandomPosts($no_of_posts="0,5"){
+    public function getRandomPosts($no_of_posts="0,4"){
         $p = $this->db->getRandWithLimit('posts',"status='1'", $no_of_posts);
         if(!$p) return null; $arr = [];
         while($a = mysqli_fetch_assoc($p)){$arr[] = $a;}
@@ -158,6 +158,20 @@ class Post{
         //return $u;
         //if(count($p) <= 0 or !$p) return null;
         return (isset($p['view_count']) and !empty($p['view_count']) and $p['view_count'])? $p['view_count']: 0;
+    }
+
+    public function getPostTags($post_id){
+        $p = $this->db->getQ('posts P INNER JOIN post_tags PT ON PT.post_id=P.uid INNER JOIN tags T ON PT.tag_id=T.uid',"P.uid='$post_id'",'T.uid,T.name',null,'T.uid');
+        if(!$p) return null; $arr = [];
+        while($a = mysqli_fetch_assoc($p)){$arr[] = $a;}
+        return $arr;
+    }
+
+    public function getRelatedPosts($tagIdStr, $no_of_posts="5"){
+        $p = $this->db->getQ('posts P INNER JOIN post_tags PT ON PT.post_id=P.uid',"PT.tag_id IN (".$tagIdStr.")",'P.*',null,'P.uid',"ASC", $no_of_posts);
+        if(!$p) return null; $arr = [];
+        while($a = mysqli_fetch_assoc($p)){$arr[] = $a;}
+        return $arr;
     }
 
     public function __toString() {
