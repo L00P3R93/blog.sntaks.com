@@ -1,5 +1,9 @@
 <head>
-    <?php include_once 'config.php'; ?>
-    <?php include 'components/base/meta.php'; ?>
-    <?php include 'components/base/css.php' ?>
+    <?php 
+        require 'vendor/autoload.php';
+        require 'config/params.php';
+
+        include 'components/base/meta.php';
+        include 'components/base/css.php'
+    ?>
 </head>

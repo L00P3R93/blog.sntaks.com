@@ -11,9 +11,14 @@
   ],
   "autoload": {
     "psr-4": {
-      "Sntaks\\Models\\": "src/models",
-      "Sntaks\\Controllers\\": "controllers"
-    }
+      "app\\": "src/"
+    },
+    "classmap": [
+      "src/"
+    ],
+    "files": [
+      "config/functions.php"
+    ]
   },
   "require": {
     "ext-mysqli": "*",

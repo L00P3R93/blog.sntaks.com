@@ -5,3 +5,7 @@ RewriteRule ^(.*)$ https://blog.sntaks.com/$1 [R,L]
 RewriteCond %{REQUEST_FILENAME} !-d 
 RewriteCond %{REQUEST_FILENAME}\.php -f 
 RewriteRule ^(.*)$ $1.php
+
+# exclude /post/1 from the final rule
+#RewriteCond %{REQUEST_URI} !^/post/\d+$
+#RewriteRule ^post/(\d+)$ /post?pid=$1 [L,QSA]

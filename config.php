@@ -1,4 +1,4 @@
-<?php
+?php
 session_start();
 date_default_timezone_set('Africa/Nairobi');
 error_reporting(E_ALL);
@@ -57,7 +57,8 @@ $post = new Post();
 $category = new Category();
 $util = new Util();
 
-//echo "DB State => ".$user->checkDBconn()."<br>";
+
+
 
 $_SESSION['sntaks_'] = 2;
 $username = $user_email = '';
@@ -86,11 +87,9 @@ $viewed_posts = $post->getMostViewedPosts("0,4");
 $random_posts = $post->getRandomPosts();
 
 
-//var_export($categories_with_posts);
-//echo "<br>";
-//$post->generateFakePosts(50);
 $post_view = new Post();
 $post_tags = [];
+
 
 if(isset($_GET['pid']) and !empty($_GET['pid'])){
     //$post_id_ = $util->decurl($_GET['pid']);

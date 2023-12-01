@@ -1,3 +1,12 @@
+<?php 
+use app\models\Category;
+use app\models\Post;
+
+$c = new Category();
+$p = new Post();
+
+?>
+
 <div class="mouse-cursor cursor-outer"></div>
 <div class="mouse-cursor cursor-inner"></div>
 
@@ -96,7 +105,9 @@
                                         <!-- Start Verticle Nav  -->
                                         <div class="axil-vertical-nav">
                                             <ul class="vertical-nav-menu">
-                                                <?php $category_ids = []; $i=0; foreach($categories_with_posts as $k=>$v){ $category_ids[] =$v['uid']; ?>
+                                                <?php
+                                                $categories = $c->getCategories(); $i=1;
+                                                foreach($categories as $k=>$v){ $categoryIds[] = $v['uid']; ?>
                                                     <li class="vertical-nav-item <?php echo $k==0?'active':''; ?>">
                                                         <a class="hover-flip-item-wrapper" href="<?php echo "#tab".++$i; ?>">
                                                             <span class="hover-flip-item">
@@ -111,12 +122,12 @@
 
                                         <!-- Start Verticle Menu  -->
                                         <div class="axil-vertical-nav-content">
-                                            <?php $i=1; foreach($category_ids as $k=>$category_id){ $category_posts = $post->getPostByCategoryId($category_id); ?>
+                                            <?php $i=1; foreach($category_ids as $k=>$categoryId){ $categoryPosts = $p->getPosts("categoryId=$categoryId"); ?>
                                                 <!-- Start One Item  -->
                                                 <div class="axil-vertical-inner tab-content" id="tab<?php echo $i++ ?>" <?php echo $k==0?'style="display: block;"':'' ?>>
                                                     <div class="axil-vertical-single">
                                                         <div class="row">
-                                                            <?php $l=1; foreach($category_posts as $j=>$v){ ?>
+                                                            <?php $l=1; foreach($categoryPosts as $j=>$v){ ?>
                                                                 <!-- Start Post List  -->
                                                                 <div class="col-lg-3">
                                                                     <div class="content-block image-rounded">
@@ -135,7 +146,7 @@
                                                                                     </a>
                                                                                 </div>
                                                                             </div>
-                                                                            <h5 class="title"><a href="#"><?php echo $util->shortenString($v['content'], 60) ?></a></h5>
+                                                                            <h5 class="title"><a href="#"><?php echo shortenString($v['content'], 60) ?></a></h5>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -176,7 +187,7 @@
                     <ul class="metabar-block">
                         <li class="icon"><a href="#"><i class="fas fa-bookmark"></i></a></li>
                         <li class="icon"><a href="#"><i class="fas fa-bell"></i></a></li>
-                        <li><a href="#"><img src="<?php echo $util->get_gravatar($user_email) ?>" alt="Author Images"></a></li>
+                        <li><a href="#"><img src="<?php echo get_gravatar('vincentkioko51@gmail.com') ?>" alt="Author Images"></a></li>
                     </ul>
                     <!-- Start Hamburger Menu  -->
                     <div class="hamburger-menu d-block d-xl-none">

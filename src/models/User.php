@@ -1,138 +1,150 @@
 <?php
-namespace Sntaks\Models;
 
+namespace app\models;
+use app\db\Database;
+use app\manager\Model;
+use app\models\Role;
+use app\models\Post;
 
-class User {
-    private $user_id;
-    private $username;
-    private $email;
-    private $password;
-    private $role;
-    private $status;
-    private $date_added;
-    private $db;
+class User extends Model{
+    protected $id;
+    protected $username;
+    protected $email;
+    protected $password;
+    protected $role;
+    protected $status;
 
-
-    public function __construct($user_id=null,$username=null,$email=null,$password=null,$role=null,$status=null,$date_added=null){
-        $this->user_id = $user_id;
-        $this->username = $username;
-        $this->email = $email;
-        $this->password = $password;
-        $this->role = $role;
-        $this->status = $status;
-        $this->date_added = $date_added;
-        $this->db = new DB();
+    
+    /**
+     * Returns the name of the table associated with this model class.
+     *
+     * @throws Some_Exception_Class description of exception
+     * @return string The name of the table associated with this model class.
+     */
+    public static function tableName(){
+        return 'users';
     }
 
     /**
-     * Getters
+     * Constructs a new instance of the class.
+     *
+     * @param mixed $id The ID of the object (optional).
+     * @return void
      */
-    public function getUserId(){return $this->user_id;}
-    public function getUsername(){return $this->username;}
-    public function getEmail(){return $this->email;}
-    public function getPassword(){return $this->password;}
-    public function getRole(){return $this->role;}
-    public function getStatus(){return $this->status;}
-    public function getDateAdded(){return $this->date_added;}
-
-    /**
-     * Setters
-     */
-    /**
-     * @param null $user_id
-     */
-    public function setUserId($user_id){$this->user_id = $user_id;}
-    public function setUsername($username){$this->username = $username;}
-    public function setEmail($email){$this->email = $email;}
-    public function setPassword($password){$this->password = $password;}
-    public function setRole($role){$this->role = $role;}
-    public function setStatus($status){$this->status = $status;}
-    public function setDateAdded($date_added){$this->date_added = $date_added;}
-
-    public function checkDBconn(){
-        if($this->db){return "Connected";}
-        else{return "Connection Failed";}
+    public function __construct($id=null){
+        if($id){
+            $this->id = $id;
+        }
     }
 
-    public function save(){
-        if($this->user_id){
-            $update_string = "username='$this->username',email='$this->email',password='$this->password',role='$this->role',status='$this->status'";
-            $save = $this->db->update('users',$update_string,"uid='$this->user_id'");
-        }else{
-            $fields = ['username','email','password','role','status','date_added'];
-            $values = [$this->username, $this->email, $this->password, $this->role, $this->status, FULL_DATE];
-            $save = $this->db->insert('users',$fields,$values);
+    /**
+     * Validates the input of the function.
+     *
+     * @throws Some_Exception_Class If the username is empty or the email is invalid or the password is empty.
+     * @return bool Returns true if the input is valid, false otherwise.
+     */
+    public function validate(){
+        if(empty($this->username)){
+            $this->setErrors('Username', 'Invalid Username');
         }
 
-        return $save;
-    }
+        if(!isValidEmail($this->email)){
+            $this->setErrors('Email', 'Invalid Email');
+        }
 
-    public function getUsers($state){
-        $u = $this->db->getQ('users',"status='$state'");
-        if(!$u) return null; $arr = [];
-        while($a = mysqli_fetch_assoc($u)){$arr[] = $a;}
-        return $arr;
-    }
+        if(empty($this->password)){
+            $this->setErrors('Password', 'Invalid Password');
+        }
 
-    /**
-     * @param $user_id
-     * @return User|null
-     */
-    public function getUserById($user_id){
-        $u = $this->db->get('users',"uid='$user_id'");
-        //return $u;
-        if(count($u) <= 0) return null;
-        return new User($u['uid'], $u['username'], $u['email'], $u['password'], $u['role'], $u['status'], $u['date_added']);
+        return empty($this->getErrors());
     }
 
     /**
-     * @param $username
-     * @return User|null
+     * Retrieves users from the database based on a given query.
+     *
+     * @param string $query The query used to filter the users. Defaults to "uid > 0".
+     * @param string $orderBy The column used to order the results. Defaults to 'uid'.
+     * @param string $direction The direction used to order the results. Defaults to 'DESC'.
+     * @throws Some_Exception_Class A description of the exception that can be thrown.
+     * @return array The array of users retrieved from the database.
      */
-    public function getUserByUsername($username){
-        $user = (new DB)->get('users',"username='$username'");
-        if(count($user) <= 0) return null;
-        return new User($user['uid'], $user['username'], $user['email'], $user['password'], $user['role'], $user['status'], $user['date_added']);
+    public function getUsers($query = "uid > 0", $orderBy='uid', $direction='DESC'){
+        $users = [];
+        $db = Database::getInstance();
+        $q = $db::getQ(static::tableName(), $query, "*", null, $orderBy, $direction);
+        while($u = mysqli_fetch_assoc($q)){
+            $loans[] = $u;
+        }
+        return $loans;
     }
 
     /**
-     * @param $email
-     * @return User|null
+     * Retrieves the details of a user.
+     *
+     * @param int|null $userId The ID of the user to retrieve details for. If null, the ID of the current user will be used.
+     * @throws Some_Exception_Class Description of the exception that may be thrown.
+     * @return mixed The user details.
      */
-    public function getUserByEmail($email){
-        $user = (new DB)->get('users',"email='$email'");
-        if(count($user) <= 0) return null;
-        return new User($user['uid'], $user['username'], $user['email'], $user['password'], $user['role'], $user['status'], $user['date_added']);
+    public function getUserDetails($userId=null){
+        $id = is_null($userId) ? $this->id : $userId;
+        $db = Database::getInstance();
+        return $db::get(static::tableName(), "uid = $id");
     }
 
     /**
-     * Returns the user role name given the user id
-     * @param $user_id
-     * @return mixed|string
+     * Retrieves the name of a role based on its ID.
+     *
+     * @param int $roleId The ID of the role.
+     * @throws Exception If the role name cannot be retrieved.
+     * @return string The name of the role.
      */
-    public function getRoleByUserId($user_id){
-        return $this->db->get_value("users U INNER JOIN roles R on U.role=R.uid","U.uid='$user_id'","R.name");
+    public function getRoleName($roleId){
+        $r = new Role($roleId);
+        return $r->getRoleName();
     }
 
     /**
-     * Returns the user status name given the user id
-     * @param $user_id
-     * @return mixed|string
+     * Retrieves the posts of a user.
+     *
+     * @param mixed $userId The ID of the user whose posts are to be retrieved. If null, the posts of the current user are retrieved.
+     * @return array The array of posts.
      */
-    public function getStatusName($user_id){
-        return $this->db->get_value("users U INNER JOIN user_status S on U.status=S.uid","U.uid='$user_id'","S.name");
+    public function getUserPosts($userId=null){
+        $posts = [];
+        $id = is_null($userId) ? $this->id : $userId;
+        $p = new Post();
+        return $p->getPosts("addedBy='$id'");
     }
 
-    public function getUserPosts($user_id){
-        $p = $this->db->getQ('posts', "added_by='$user_id'");
-        if(!$p) return null; $arr = [];
-        while($a = mysqli_fetch_assoc($p)){$arr[] = $a;}
-        return $arr;
+    /**
+     * Retrieves user posts by category.
+     *
+     * @param int $categoryId The ID of the category.
+     * @param int|null $userId (optional) The ID of the user. Defaults to null.
+     * @return array The array of user posts.
+     */
+    public function getUserPostsByCategory($categoryId, $userId=null){
+        $posts = [];
+        $id = is_null($userId) ? $this->id : $userId;
+        $p = new Post();
+        return $p->getPosts("addedBy='$id' AND categoryId='$categoryId'");
     }
 
-    public function __toString() {
-        return "User: [id={$this->user_id}, username={$this->username}, email={$this->email}, password={$this->password}, role={$this->role}, status={$this->status}, date_added={$this->date_added}]";
-    }
+    public function getId() { return $this->id; }
+    public function setId($id) { $this->id = $id; }
 
+    public function getUsername() { return $this->username; }
+    public function setUsername($username) { $this->username = $username; }
 
+    public function getEmail() { return $this->email; }
+    public function setEmail($email) { $this->email = $email; }
+
+    public function getPassword() { return $this->password; }
+    public function setPassword($password) { $this->password = $password; }
+
+    public function getRole() { return $this->role; }
+    public function setRole($role) { $this->role = $role; }
+
+    public function getStatus() { return $this->status; }
+    public function setStatus($status) { $this->status = $status; }
 }

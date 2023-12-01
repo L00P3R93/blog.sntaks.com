@@ -22,9 +22,9 @@
                                 <div class="post-cat">
                                     <div class="post-cat-list">
                                         <a class="hover-flip-item-wrapper" href="#">
-                                                    <span class="hover-flip-item">
-                                                        <span data-text="RESEARCH">RESEARCH</span>
-                                                    </span>
+                                            <span class="hover-flip-item">
+                                                <span data-text="RESEARCH">RESEARCH</span>
+                                            </span>
                                         </a>
                                     </div>
                                 </div>
@@ -37,9 +37,9 @@
                                         <div class="content">
                                             <h6 class="post-author-name">
                                                 <a class="hover-flip-item-wrapper" href="author.html">
-                                                            <span class="hover-flip-item">
-                                                                <span data-text="Rahabi Khan">Rahabi Khan</span>
-                                                            </span>
+                                                        <span class="hover-flip-item">
+                                                            <span data-text="Rahabi Khan">Rahabi Khan</span>
+                                                        </span>
                                                 </a>
                                             </h6>
                                             <ul class="post-meta-list">
